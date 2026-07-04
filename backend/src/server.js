@@ -19,9 +19,10 @@ app.get("/books", (req, res) => {
 if (ENV.NODE_ENV == "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")))
 
-    app.get("/{*any}", (req, res) => {
+    app.get("*", (req, res) => {
         res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
     })
 }
 
-app.listen(ENV.PORT, () => console.log("server is running on port :", ENV.PORT));
+const PORT = ENV.PORT || 3000;
+app.listen(PORT, () => console.log("server is running on port :", PORT));
